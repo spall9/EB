@@ -1,0 +1,12 @@
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\Fizz.exe.config
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\Fizz.exe
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\Fizz.pdb
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\EloBuddy.dll
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\EloBuddy.Sandbox.dll
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\EloBuddy.SDK.dll
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\SharpDX.dll
+C:\Users\Modestas\Desktop\New folder\Fizz\bin\Release\Newtonsoft.Json.dll
+C:\Users\Modestas\Desktop\New folder\Fizz\obj\Release\Fizz.csprojResolveAssemblyReference.cache
+C:\Users\Modestas\Desktop\New folder\Fizz\obj\Release\Fizz.exe
+C:\Users\Modestas\Desktop\New folder\Fizz\obj\Release\Fizz.pdb
