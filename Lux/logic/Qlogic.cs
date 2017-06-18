@@ -13,7 +13,7 @@ namespace lux.logic
     {
         public static void simpleQ(Obj_AI_Base target)
         {
-            if (Spells.Q.GetPrediction(target).HitChance >= HitChance.High)
+            if (Spells.Q.GetPrediction(target).HitChancePercent >= Extension.GetSliderValue(Meniu.Prediction, "q.prediction"))
             {
                 Spells.Q.Cast(target);
             }

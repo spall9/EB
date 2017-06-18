@@ -5,6 +5,7 @@ using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using SharpDX;
 using EloBuddy.SDK.Rendering;
+using System.Collections.Generic;
 
 namespace lux
 {
@@ -51,6 +52,16 @@ namespace lux
         {
             return m.Get<ComboBox>(uniqueId).CurrentValue;
         }
-
+        public static bool WillKill(this Spell.Skillshot spell, Obj_AI_Base target)
+        {
+            return Spells.GetDamage(target, spell.Slot) >= Prediction.Health.GetPrediction(target,spell.CastDelay);
+        }
+        public static IEnumerable<Obj_AI_Minion> SupportedJungleMobs
+        {
+            get
+            {
+                return EntityManager.MinionsAndMonsters.GetJungleMonsters().Where(m => exclusive.Any(j => j.Equals(m.BaseSkinName)));
+            }
+        }
     }
 }

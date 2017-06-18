@@ -12,6 +12,7 @@ namespace lux
     static class Spells
     {
         public static Spell.Skillshot Q, W, E, R;
+        public static Spell.Targeted Ignite;
         public static void Ini()
         {
             Q = new Spell.Skillshot(SpellSlot.Q, 1175, SkillShotType.Linear, 250, 1200, 70)
@@ -30,7 +31,7 @@ namespace lux
             {
                 AllowedCollisionCount = int.MaxValue
             };
-
+            Ignite = new Spell.Targeted(ObjectManager.Player.GetSpellSlotFromName("summonerdot"), 600);
         }
         public static float GetDamage(this Obj_AI_Base target, SpellSlot slot)
         {

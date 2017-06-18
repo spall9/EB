@@ -13,14 +13,14 @@ namespace lux.logic
     {
         public static void FinisherR(Obj_AI_Base target)
         {
-            if (Spells.R.GetPrediction(target).HitChance >= HitChance.High && Spells.GetDamage(target,SpellSlot.R) >= Prediction.Health.GetPrediction(target,Spells.R.CastDelay))
+            if (Spells.R.GetPrediction(target).HitChancePercent >= Extension.GetSliderValue(Meniu.Prediction, "r.prediction") && Spells.GetDamage(target,SpellSlot.R) >= Prediction.Health.GetPrediction(target,Spells.R.CastDelay))
             {
                 Spells.R.Cast(target);
             }
         }
         public static void MultiR(Obj_AI_Base target)
         {
-            Spells.R.CastIfItWillHit(Extension.GetSliderValue(Meniu.Combo, "combo.r.min"), 75);
+            Spells.R.CastIfItWillHit(Extension.GetSliderValue(Meniu.Combo, "combo.r.min"),Extension.GetSliderValue(Meniu.Prediction, "r.prediction"));
         }
         public static void Rchoise(Obj_AI_Base target)
         {

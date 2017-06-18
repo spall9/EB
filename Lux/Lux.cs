@@ -43,18 +43,33 @@ namespace lux
             }
             if (!ObjectManager.Player.IsDead && Spells.E.IsReady() && Extension.GetCheckBoxValue(Meniu.Harras, "harass.e"))
             {
-                Spells.E.CastIfItWillHit(Extension.GetSliderValue(Meniu.Harras, "harass.e.enemies"), 85);
+                Spells.E.CastIfItWillHit(Extension.GetSliderValue(Meniu.Harras, "harass.e.enemies"),Extension.GetSliderValue(Meniu.Prediction, "e.prediction"));
             }
         }
         public static void laneclear()
         {
             if (Spells.E.IsReady() && Extension.GetCheckBoxValue(Meniu.Laneclear,"laneclear.e"))
             {
-                Spells.E.CastOnBestFarmPosition(Extension.GetSliderValue(Meniu.Laneclear, "laneclear.e.min"), 60);
+                Spells.E.CastOnBestFarmPosition(Extension.GetSliderValue(Meniu.Laneclear, "laneclear.e.min"),Extension.GetSliderValue(Meniu.Prediction, "q.prediction"));
             }
             if (Spells.Q.IsReady() && Extension.GetCheckBoxValue(Meniu.Laneclear, "laneclear.q"))
             {
-                Spells.Q.CastOnBestFarmPosition(2, 60);
+                Spells.Q.CastOnBestFarmPosition(2,Extension.GetSliderValue(Meniu.Prediction, "q.prediction"));
+            }
+        }
+        public static void jungleclear()
+        {
+            var monster = EntityManager.MinionsAndMonsters.GetJungleMonsters().OrderByDescending(j => j.Health).FirstOrDefault(j => j.IsValidTarget(Spells.Q.Range));
+            if (monster != null)
+            {
+                if (Spells.E.IsReady() && Extension.GetCheckBoxValue(Meniu.Jungleclear, "jungleclear.e"))
+                {
+                    Spells.E.Cast(monster.Position);
+                }
+                if (Spells.Q.IsReady() && Extension.GetCheckBoxValue(Meniu.Jungleclear, "jungleclear.q"))
+                {
+                    Spells.Q.Cast(monster.Position);
+                }
             }
         }
     }
