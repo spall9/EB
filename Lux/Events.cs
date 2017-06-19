@@ -11,42 +11,48 @@ namespace lux
 {
     class Events
     {
-        public static void AIHeroClient_OnBasicAttack(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        public static void OnUpdate(GameObject obj, EventArgs args)
         {
-            if (sender.IsEnemy)
+            var missile = obj as MissileClient;
+            if (missile != null &&
+                missile.SpellCaster != null &&
+                missile.SpellCaster.IsEnemy &&
+                missile.SpellCaster.Type == GameObjectType.AIHeroClient &&
+                logic.Wlogic.ProjectileList.Contains(missile))
             {
-                foreach (var ally in EntityManager.Heroes.Allies.Where(x => x.IsHPBarRendered && !x.IsInFountainRange() && Spells.W.IsInRange(x)))
-                {
-                    if (args.Target.IsAlly && sender.GetAutoAttackDamage(ally) >= ally.Health)
-                    {
-                        if (Extension.GetCheckBoxValue(Meniu.Shield, ally.ChampionName))
-                        {
-                            Spells.W.Cast(ally.ServerPosition);
-                        }
-                    }
-                }
+                logic.Wlogic.ProjectileList.Remove(missile);
+                logic.Wlogic.ProjectileList.Add(missile);
             }
         }
 
-        public static void AIHeroClient_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        public static void OnCreate(GameObject obj, EventArgs args)
         {
-            if (sender.IsEnemy)
-            {
-                foreach (var ally in EntityManager.Heroes.Allies.Where(x => x.IsHPBarRendered && !x.IsInFountainRange() && Spells.W.IsInRange(x)))
-                {
-                    if (args.Target == ally || args.End.IsInRange(ally.ServerPosition, args.SData.CastRange))
-                    {
-                        if (Extension.GetCheckBoxValue(Meniu.Shield, ally.ChampionName))
-                        {
-                            Spells.W.Cast(ally.ServerPosition);
-                        }
-                    }
+            var missile = obj as MissileClient;
+            if (missile != null &&
+                missile.SpellCaster != null &&
+                missile.SpellCaster.IsEnemy &&
+                missile.SpellCaster.Type == GameObjectType.AIHeroClient)
+                logic.Wlogic.ProjectileList.Add(missile);
+        }
 
-                }
+        public static void OnDelete(GameObject obj, EventArgs args)
+        {
+            if (obj == null)
+                return;
+
+            var missile = obj as MissileClient;
+            if (missile != null &&
+                missile.SpellCaster != null &&
+                missile.SpellCaster.IsEnemy &&
+                missile.SpellCaster.Type == GameObjectType.AIHeroClient &&
+                logic.Wlogic.ProjectileList.Contains(missile))
+            {
+                logic.Wlogic.ProjectileList.Remove(missile);
             }
         }
         public static void Game_OnTick(EventArgs args)
         {
+            logic.Wlogic.TryToW();
             logic.junglesteal.ini();
             if (Orbwalker.ActiveModesFlags.HasFlag(Orbwalker.ActiveModes.Combo))
             {

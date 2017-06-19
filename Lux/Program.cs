@@ -1,12 +1,15 @@
-﻿using EloBuddy;
-using EloBuddy.SDK;
-using EloBuddy.SDK.Events;
-using EloBuddy.SDK.Spells;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using EloBuddy;
+using EloBuddy.SDK;
+using EloBuddy.SDK.Enumerations;
+using EloBuddy.SDK.Events;
+using EloBuddy.SDK.Menu;
+using EloBuddy.SDK.Menu.Values;
+using EloBuddy.SDK.Rendering;
+using SharpDX;
+using UnsignedEvade; // Credit to Chaos for logic if about to be hit and his spelldatabase
 
 namespace lux
 {
@@ -25,12 +28,24 @@ namespace lux
                 Chat.Print("Lux loaded");
                 Spells.Ini();
                 Game.OnTick += Events.Game_OnTick;
-                AIHeroClient.OnProcessSpellCast += Events.AIHeroClient_OnProcessSpellCast;
-                AIHeroClient.OnBasicAttack += Events.AIHeroClient_OnBasicAttack;
+                GameObject.OnCreate += Events.OnCreate;
+                GameObject.OnDelete += Events.OnDelete;
+                Obj_AI_Base.OnUpdatePosition += Events.OnUpdate;
+
+                foreach (AIHeroClient client in EntityManager.Heroes.Enemies)
+                {
+                    foreach (SpellInfo info in SpellDatabase.SpellList)
+                    {
+                        if (info.ChampionName == client.ChampionName)
+                        {
+                            logic.Wlogic.EnemyProjectileInformation.Add(info);
+
+                        }
+                    }
+                }
             }
 
         }
-
 
     }
 }

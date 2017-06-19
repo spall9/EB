@@ -5,7 +5,7 @@ using EloBuddy.SDK.Menu;
 using EloBuddy.SDK.Menu.Values;
 using System;
 using System.Linq;
-
+using UnsignedEvade;
 namespace lux
 {
     class Meniu
@@ -62,6 +62,17 @@ namespace lux
             foreach (var ally in EntityManager.Heroes.Allies)
             {
                 Shield.Add(ally.ChampionName, new CheckBox("Use shield on " + ally.ChampionName));
+            }
+            foreach (AIHeroClient client in EntityManager.Heroes.Enemies)
+            {
+                foreach (SpellInfo info in SpellDatabase.SpellList)
+                {
+                    if (info.ChampionName == client.ChampionName)
+                    {
+                        logic.Wlogic.EnemyProjectileInformation.Add(info);
+
+                    }
+                }
             }
         }
     }
