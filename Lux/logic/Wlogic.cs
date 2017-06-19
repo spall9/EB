@@ -33,7 +33,7 @@ namespace lux.logic
                                     Spells.W.Cast(client.ServerPosition);
                                 }
                                 else if (info.ChannelType != SpellDatabase.ChannelType.None && Spells.W.IsReady()
-                                    && Extension.GetCheckBoxValue(Meniu.Shield, client.ChampionName)
+                                    && Extension.GetCheckBoxValue(Meniu.Shield, client.ChampionName))
                                     Spells.W.Cast(client.ServerPosition);
                             }
                         }
